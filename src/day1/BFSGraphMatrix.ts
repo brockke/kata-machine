@@ -4,31 +4,31 @@ export default function bfs(graph: WeightedAdjacencyMatrix, source: number, need
 
     seen[source] = true
     const q: number[] = []
-    q.unshift(source)
+    q.unshift(source) //add inital node to que
 
     while (q.length){
-        const curr = q.shift() as number
+        const curr = q.shift() as number 
         if (curr == needle){
             break;
         }
 
-        const adjs = graph[curr]
-        for(let i = 0; i < graph.length; i++){
-            if (adjs[i] == 0){
+        const adjs = graph[curr] // Get array of connecting nodes
+        for(let i = 0; i < graph.length; i++){ //iterate through array of nodes
+            if (adjs[i] == 0){ //only check if they acctually connect
                 continue
             }
-            if (seen[i]){
+            if (seen[i]){ //only check if nodes haven't already been visited 
                 continue
             }
             seen[i] = true
             prev[i] = curr
-            q.push(i)
+            q.push(i) //push new node to check onto que
         }
     }
 
     let curr = needle;
     const out: number[] = []
-    while (prev[curr] != -1){
+    while (prev[curr] != -1){ //iterate through the prev array, finding the parent of the found node recurrsively
         out.push(curr)
         curr = prev[curr]
     }
